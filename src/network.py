@@ -15,6 +15,7 @@ import random
 
 # Third-party libraries
 import numpy as np
+import cPickle
 
 class Network(object):
 
@@ -130,6 +131,14 @@ class Network(object):
         """Return the vector of partial derivatives \partial C_x /
         \partial a for the output activations."""
         return (output_activations-y)
+    
+    def dump_model(self, model_file_name):
+        with open(model_file_name,'wb') as f:
+            cPickle.dump((self.num_layers, self.sizes, self.biases, self.weights), f)
+        
+    def load_model(self, model_file_name):
+        with open(model_file_name,'rb') as f:
+            self.num_layers, self.sizes, self.biases, self.weights = cPickle.load(f)
 
 #### Miscellaneous functions
 def sigmoid(z):
