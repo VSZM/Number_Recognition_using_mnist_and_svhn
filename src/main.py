@@ -27,5 +27,5 @@ if __name__ == '__main__':
     print 'Getting data...'
     training_data, validation_data, test_data = mnist_loader.load_data_wrapper()
     nn =  load_network()
-    util.evaluate_image(nn, '8.png')
+    util.evaluate_image(nn, '6big.png')
     

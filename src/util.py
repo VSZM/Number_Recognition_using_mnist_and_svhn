@@ -3,6 +3,8 @@ from PIL import Image
 import numpy as np
 import itertools
 
+DEFAULT_SIZE = (28, 28)
+
 def evaluate_image(nn, image_location):
     image_flat = image_to_npflattened(image_location)
     print_image_flattened(image_flat)
@@ -10,8 +12,9 @@ def evaluate_image(nn, image_location):
     print nn.feedforward(image_flat)
     print 
 
-def image_to_npflattened(image_location):
+def image_to_npflattened(image_location, resized_size = DEFAULT_SIZE):
     im = Image.open(image_location)
+    im = im.resize(resized_size, Image.ANTIALIAS)
     arr = np.asarray(im.getdata()).reshape(im.size[1], im.size[0], -1)
     arr_scaled = [1.0 - number / 255.0 for number in arr]
     arr_scaled = list(itertools.chain.from_iterable(arr_scaled))
